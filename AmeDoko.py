@@ -284,8 +284,8 @@ def saveSession(session):
         exit()
 
 parser = argparse.ArgumentParser()
-parser.add_argument("-k", "--keyFile", help="File containing Holodex API key, defualt holodexkey.txt")
-parser.add_argument("-c", "--cookiesFile", help="File containing youtube cookies, required for memebers only stream")
+parser.add_argument("-k", "--keyFile", help="File containing Holodex API key, defualt holodexkey.txt, overrides key in config.yaml")
+parser.add_argument("-c", "--cookiesFile", help="File containing YouTube cookies, overrides settings in config.yaml")
 parser.add_argument("-p", "--path", help="Path to where files should be saved, default current directory")
 
 args = parser.parse_args()

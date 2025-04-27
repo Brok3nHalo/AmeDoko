@@ -18,15 +18,15 @@ Description:
   Downloading video content is against terms of service and downloading large amounts of content is a risk.
   When possible it's recommended to use a burner account to download content and not your primary.
   
+PreReqs:
+    Have a membership on the YouTube channel you want to archive 
+    Get Holodex API key https://docs.holodex.net/#section/Getting-Started/Obtaining-API-Key
+    Download yt-dlp https://github.com/yt-dlp/yt-dlp/releases
+    Download ffmpeg https://ffmpeg.org/download.html
+    Download Python 3 https://www.python.org/downloads/
+    Download HolodexClient from https://github.com/Brok3nHalo/HolodexClient as zip
+
 Setup:
-    PreReqs
-        Have a Membership on the YouTube channel you want to archive 
-        Get Holodex API key
-        Download yt-dlp
-        Download ffmpeg
-        Download Python 3
-        Download HolodexClient from https://github.com/Brok3nHalo/HolodexClient as zip
-        
     Extract yt-dlp and ffmpeg to the same directory as AmeDoko.py the following files specifically are required:
     - yt-dlp.exe
     - ffmpeg.exe
@@ -54,10 +54,15 @@ Usage:
       I've only tested cookies_from_browser with FireFox, I don't know if the others besides that and chrome work or not
 
     Open a terminal in the folder containing AmeDoko and run:
-        AmeDoko.py
+        python AmeDoko.py
 
-    Optional perameters:
-        AmeDoko.py [-h] [-k KEYFILE] [-c COOKIESFILE]
+    Parameters:
+        python AmeDoko.py [-h] [-k KEYFILE] [-c COOKIESFILE] [-p PATH]
+    options:
+        -h, --help                                  Show this help message and exit
+        -k KEYFILE, --keyFile KEYFILE               File containing Holodex API key, defualt holodexkey.txt, overrides key in config.yaml
+        -c COOKIESFILE, --cookiesFile COOKIESFILE   File containing youtube cookies, overrides settings in config.yaml
+        -p PATH, --path PATH                        Path to where files should be saved, default current directory
 
 TODO:
  - Improved UI
