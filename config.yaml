@@ -1,0 +1,20 @@
+
+#Place holodex API key here
+holodex_key:
+
+#Number of videos to download data for in a single request to Holodex, default 100
+video_request_limit: 100
+
+#Cookies file to use for downloading youtube, overridable via command line
+cookies_file:
+
+#What browser to load cookies from if cookie file not provided
+#Valid options: brave, chrome, chromium, edge, firefox, opera, safari, vivaldi, whale
+#Chrome does not work on windows
+cookies_from_browser:
+
+#Location to store downloaded files, defaults to the current directory, can be overrided on command line
+path:
+
+#Comma seperated list of languages, default en
+sub_lang:
