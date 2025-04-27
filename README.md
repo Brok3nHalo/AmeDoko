@@ -12,14 +12,14 @@ Description:
   Currently only works on Windows.
 
 
-!!!WARNING!!!:
+!!!WARNING!!!
 
-  !!!BAN RISK!!!:
+!!!BAN RISK!!!
 
-    I am not responsibly for any ban or other retaliation from YouTube for use of this script.
-    I have used it multiple times with no detrimental effects but that is no guarantee.
-    Downloading video content is against terms of service and downloading large amounts of content is a risk.
-    When possible it's recommended to use a burner account to download content and not your primary.
+I am not responsibly for any ban or other retaliation from YouTube for use of this script.
+I have used it multiple times with no detrimental effects but that is no guarantee.
+Downloading video content is against terms of service and downloading large amounts of content is a risk.
+When possible it's recommended to use a burner account to download content and not your primary.
   
 PreReqs:
 
