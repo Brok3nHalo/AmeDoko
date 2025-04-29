@@ -8,6 +8,9 @@ It archives the following from each memebers only stream:
  - Comments
  - Live Chat
  - Any available subtitles including auto-generated ones
+   - By default english is downloaded but languages can be set in the config
+
+It saves progress as it goes along and lets you resume on the next run.
 
 Currently only works on Windows.
 
@@ -53,7 +56,7 @@ Open a terminal in the folder containing AmeDoko and run:
 python AmeDoko.py
 ```
 
-## Parameters
+### Parameters
     python AmeDoko.py [-h] [-k KEYFILE] [-c COOKIESFILE] [-p PATH]
 ### Options:
     -h, --help                                  Show this help message and exit
@@ -61,8 +64,44 @@ python AmeDoko.py
     -c COOKIESFILE, --cookiesFile COOKIESFILE   File containing YouTube cookies, overrides settings in config.yaml
     -p PATH, --path PATH                        Path to where files should be saved, default current directory
 
+### Interface
+On intial launch you'll be prompted to search for the channel to archive:
+![1 Search](https://github.com/user-attachments/assets/b93e428f-0a57-46e6-bac3-f452aef1a451)
+
+If multiple matches are found you can select the one you want:
+![2 Search Results](https://github.com/user-attachments/assets/ef2def14-eec5-4277-b8d1-71f748d8bdc6)
+
+On future launches prevous seaches will be saved and you can select which one to continue or N for a new search:
+![3 Selection](https://github.com/user-attachments/assets/4f307f53-20ce-42ca-a101-353c4ba64dcf)
+
+A list of available and missing videos will be shown so you can verify it's the correct channel:
+![4 Video List](https://github.com/user-attachments/assets/946ce8df-6614-464f-b31d-6fb9327de516)
+
+You can then choose to continue or press U to update the list if there have been new videos since the last use:
+![5 Continue or Update](https://github.com/user-attachments/assets/f300b6a2-5ffc-4f8a-ae38-0bad498b2de6)
+
+As it downloads it will keep you updated on progress:
+![6 Downloading](https://github.com/user-attachments/assets/ad5ee66f-e9ca-4850-a453-5c9065725257)
+
+It saves the current state after each download so it can be resummed later:
+![7 Finished Download](https://github.com/user-attachments/assets/15ddad72-cc4b-417b-b8f1-2b197f1cf168)
+
+When continueing a prevouse download the video list will mark completed downloads with a X and errors with a !:
+![8 Finshied and Error](https://github.com/user-attachments/assets/73260eb1-53aa-4944-8969-9e58586f6b60)
+
+If the last session had any errors, you will be asked if you'd like to retry the videos with issues:
+![9 Retry](https://github.com/user-attachments/assets/416bb36c-8f70-4d3a-935d-ed17e090e467)
+
+Currently there is no way to redownload successfully downloaded videos, currently the solution to this is to delete AmdeDoko.state and --continue files from the AmeDoko folder. Note this will lose track of all your current sessions and be a fresh start so you may want to back them up and restore them after you are done redownloading.
+
+If you need to exit early while downloading hit ctrl-C a couple times to exit or close the console window, don't do this while session is being saved or it may get corrupted. A real way to exit will be added soon.
+
 ## TODO
  - Improved UI
+ - Simpler install and setup
+ - Way to exit while downloading
+ - Redownloading support
+ - Better failure handling
  - Download options
    - Other Topics
    - Videos in time span
