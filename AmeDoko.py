@@ -1,12 +1,82 @@
-import asyncio
-from holodex.client import HolodexClient
+from io import BytesIO
 import pickle
 from pathlib import Path
 from subprocess import Popen, PIPE
 import sys
 import argparse
-import yaml
 import re
+import importlib
+from urllib.request import urlopen
+from zipfile import ZipFile
+from os import path, makedirs
+from shutil import copyfileobj
+
+
+dependencies = False
+while not dependencies:
+    try:
+        import asyncio
+        import yaml
+        import keyboard
+        
+        if not (importlib.util.find_spec("aiohttp") and importlib.util.find_spec("typing_extensions")):
+            raise ImportError()
+    except ImportError:
+        print("Dependencies not found! Install dependencies?")
+        match(input("Y/N: ")):
+            case "Y" | "y":
+                try:
+                    pip = Popen("pip install -r requirements.txt", stdin=PIPE, stdout=PIPE, stderr=PIPE, shell=True)
+                except:
+                    print("Install failed try instealling dependencies manually, see README for details")
+                
+                while(pip.poll() == None):
+                    # Echo output to console
+                    for c in iter(lambda: pip.stdout.read(1), b""):
+                        sys.stdout.buffer.write(c)
+                    for c in iter(lambda: pip.stderr.read(1), b""):
+                        sys.stderr.buffer.write(c)
+
+                print("\nDependencies installed!\n")
+            case "N" | "n":
+                print("Dependencies required to continue, exiting...")
+                exit()
+        continue
+    
+    try:
+        from holodex.client import HolodexClient
+    except ImportError:
+        print("Holodex library not found, download it?")
+
+        match(input("Y/N: ")):
+            case "Y" | "y":
+                print("Downloading library...")
+                try:
+                    script_path = Path(path.realpath(__file__)).parent
+                    response = urlopen("https://github.com/Brok3nHalo/HolodexClient/archive/refs/heads/master.zip")
+                    data = response.read()
+                    with ZipFile(BytesIO(data)) as archive:
+                        for item_name in archive.namelist():
+                            if item_name.startswith("HolodexClient-master/holodex/") and not item_name.endswith("/"):
+                                item_path = script_path/item_name.removeprefix("HolodexClient-master/")
+                                item = archive.open(item_name)
+                                if not path.exists(item_path.parent):
+                                    makedirs(item_path.parent)
+                                with open(item_path, "wb") as file:
+                                    copyfileobj(item, file)
+                except Exception as e:
+                    print(f"Issue downloading holodex library, maybe try getting it manually? See README for details\n{e}")
+                    exit()
+                print("Holodex library downloaded!")
+            case "N" | "n":
+                print("Holodex Client required to continue, exiting...")
+                exit()
+
+        continue
+
+    
+    dependencies = True
+
 
 STATE_LOADABLE = [0]
 STATE_VERSION = 0
@@ -180,6 +250,10 @@ async def main(holodex_key_file = None, cookies_file = None, path = None):
             # Echo yt-dlp output to console
             for c in iter(lambda: ytdlp.stdout.read(1), b""):
                 sys.stdout.buffer.write(c)
+                if keyboard.is_pressed(" "):
+                    match input("\nX to exit, anything else to continue: ").strip():
+                        case "X" | "x":
+                            exit()
             for c in iter(lambda: ytdlp.stderr.read(1), b""):
                 sys.stderr.buffer.write(c)
 
@@ -284,7 +358,7 @@ def saveSession(session):
         exit()
 
 parser = argparse.ArgumentParser()
-parser.add_argument("-k", "--keyFile", help="File containing Holodex API key, defualt holodexkey.txt, overrides key in config.yaml")
+parser.add_argument("-k", "--keyFile", help="File containing Holodex API key, default holodexkey.txt, overrides key in config.yaml")
 parser.add_argument("-c", "--cookiesFile", help="File containing YouTube cookies, overrides settings in config.yaml")
 parser.add_argument("-p", "--path", help="Path to where files should be saved, default current directory")
 

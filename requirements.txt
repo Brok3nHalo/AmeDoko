@@ -1,3 +1,4 @@
 aiohttp
 typing-extensions
 pyyaml
+keyboard
